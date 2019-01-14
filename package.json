@@ -1,43 +1,44 @@
 {
-    "name": "adelholtz/vuetility",
-    "version": "0.0.1",
-    "description": "Basic utilities for Vue and Vuex",
-    "main": "index.js",
-    "repository": "https://github.com/adelholtz/vuetility.git",
-    "author": "BenjaminKrammel <adelholtz@gmail.com>",
-    "license": "MIT",
-    "private": null,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js",
-        "test": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --watch --hide-modules --config=webpack.config.js",
-        "prod": "yarn run production",
-        "production": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.1.0",
-        "@babel/preset-env": "^7.1.0",
-        "@vue/test-utils": "^1.0.0-beta.25",
-        "babel-loader": "^8.0.4",
-        "cross-env": "^5.2.0",
-        "eslint": "^5.5.0",
-        "eslint-plugin-vue": "^5.0.0-beta.3",
-        "jasmine": "^3.2.0",
-        "jasmine-core": "^3.2.1",
-        "karma": "^3.0.0",
-        "karma-chrome-launcher": "^2.2.0",
-        "karma-jasmine": "^1.1.2",
-        "karma-junit-reporter": "^1.2.0",
-        "karma-summary-reporter": "^1.5.1",
-        "karma-webpack": "^3.0.5",
-        "vue-loader": "^15.4.2",
-        "vue-template-compiler": "^2.5.17",
-        "webpack": "^4.20.2",
-        "webpack-cli": "^3.1.1"
-    },
-    "dependencies": {
-        "lodash": "^4.17.4",
-        "vue": "^2.5.17",
-        "vuex": "^3.0.1"
-    }
+	"name": "@adelholtz/vuetility",
+	"version": "0.0.1",
+	"description": "Basic utilities for Vue and Vuex",
+	"main": "index.js",
+	"homepage": "https://github.com/adelholtz/vuetility",
+	"bugs": "https://github.com/adelholtz/vuetility/issues",
+	"repository": "https://github.com/adelholtz/vuetility.git",
+	"author": "BenjaminKrammel <adelholtz@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"dev": "npm run development",
+		"development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js",
+		"test": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --watch --hide-modules --config=webpack.config.js",
+		"prod": "yarn run production",
+		"production": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.1.0",
+		"@babel/preset-env": "^7.1.0",
+		"@vue/test-utils": "^1.0.0-beta.25",
+		"babel-loader": "^8.0.4",
+		"cross-env": "^5.2.0",
+		"eslint": "^5.5.0",
+		"eslint-plugin-vue": "^5.0.0-beta.3",
+		"jasmine": "^3.2.0",
+		"jasmine-core": "^3.2.1",
+		"karma": "^3.0.0",
+		"karma-chrome-launcher": "^2.2.0",
+		"karma-jasmine": "^1.1.2",
+		"karma-junit-reporter": "^1.2.0",
+		"karma-summary-reporter": "^1.5.1",
+		"karma-webpack": "^3.0.5",
+		"vue-loader": "^15.4.2",
+		"vue-template-compiler": "^2.5.17",
+		"webpack": "^4.20.2",
+		"webpack-cli": "^3.1.1"
+	},
+	"dependencies": {
+		"lodash": "^4.17.4",
+		"vue": "^2.5.17",
+		"vuex": "^3.0.1"
+	}
 }
