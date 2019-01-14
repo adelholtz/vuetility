@@ -179,7 +179,7 @@ You can override stuff from the BasicStore in your local store.
 Complete example implementation
 ```javascript
 import {MyModel} from '@model/MyModel'; // model for the store and component
-import {BasicStore} from '@internetx/vuetility';
+import {BasicStore} from 'adelholtz/vuetility';
 const basicStore = new BasicStore(new MyModel());
 
 export default _.merge({
@@ -234,7 +234,7 @@ Complete example implementation
 
 ```javascript
 import {MyModel} from '@model/MyModel';
-import {BasicComponent} from '@internetx/vuetility';
+import {BasicComponent} from '@adelholtz/vuetility';
 
 export default {
     name: 'component Name',
