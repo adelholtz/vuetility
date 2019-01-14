@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<testsuite name="HeadlessChrome 0.0.0 (Mac OS X 10.13.6)" package="" timestamp="2018-09-28T13:20:08" id="0" hostname="benjamin-krammel.intern.internetx.de" tests="2" errors="0" failures="0" time="0.015">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/65.0.3296.0 Safari/537.36"/>
+  </properties>
+  <testcase name="BasicComponent basicComponentHasExpectedComputed" time="0.001" classname="HeadlessChrome_0_0_0_(Mac_OS_X_10_13_6).BasicComponent"/>
+  <testcase name="BasicComponent myComponentHasExpectedComputed" time="0.014" classname="HeadlessChrome_0_0_0_(Mac_OS_X_10_13_6).BasicComponent"/>
+  <system-out>
+    <![CDATA[HeadlessChrome 0.0.0 (Mac OS X 10.13.6) LOG: Object{MyModel_MyModel: Object{id: undefined, live: false, category: undefined, type: 'gtld'}}
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>
