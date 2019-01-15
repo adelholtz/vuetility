@@ -11,7 +11,7 @@ export default class BasicComponent {
      * @param string typeSecurityLevel // can be log or off
      * @return Object
      */
-    constructor(modelObjects, typeSecurityLevel = null, nameSpace = null) {
+    constructor(modelObjects, typeSecurityLevel = null) {
         this.setTypeSecurityLevel(typeSecurityLevel);
 
         let computed = {};
@@ -20,15 +20,33 @@ export default class BasicComponent {
             _.each(
                 modelObjects,
                 function(modelObject) {
-                    _.merge(computed, this.computed(modelObject, nameSpace));
+                    let preparedModel = this.prepare(modelObject);
+                    _.merge(computed, this.computed(preparedModel.model, preparedModel.nameSpace));
                 }.bind(this)
             );
         } else {
-            computed = this.computed(modelObjects, nameSpace);
+            let preparedModel = this.prepare(modelObjects);
+            computed = this.computed(preparedModel.model, preparedModel.nameSpace);
         }
 
         return {
             computed
+        };
+    }
+
+    prepare(modelObjects){
+        let model, nameSpace;
+        if(typeof modelObjects.model !== 'function'){
+            model = modelObjects.model;
+        }else{
+            model = modelObjects;
+        }
+        if(modelObjects.nameSpace){
+            nameSpace = modelObjects.nameSpace;
+        }
+
+        return {
+            model, nameSpace
         };
     }
 

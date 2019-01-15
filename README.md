@@ -4,7 +4,6 @@
 * get rid of the need for a constructor in the custom models
 * tests
 * improve readme
-* add an example for namespaced vuex stores
 * allow collection of models per store
 
 ## Prerequsisits
@@ -109,6 +108,26 @@ whiteList and blackList can be passed at the same time.
             whiteList: ['propertyA', 'propertyB'],
             blackList: ['properyC']
         }))
+    ]
+```
+
+### Usage with namespaced store modules
+```javascript
+    mixins: [
+        new BasicComponent({
+            model: new YourModel(),
+            nameSpace: 'NameSpace'
+        })
+    ]
+    // multiple models
+    mixins: [
+        new BasicComponent([{
+            model: new YourModel(),
+            nameSpace: 'NameSpace'
+        },{
+            model: new YourModel2(),
+            nameSpace: 'NameSpace2'
+        }])
     ]
 ```
 
