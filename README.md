@@ -2,6 +2,16 @@
 
 1. [Todo](#todo)
 2. [Prerequsisits](#rerequsisits)
+3. [Latest version](#version)
+4. [Installation](#installation)
+5. [Introduction](#introduction)
+6. [Usage](#usage)
+    1. [Type Security](#security)
+    2. [White and Blacklisting](#whitelist)
+    3. [Namespaced stores](#namespaced)
+    4. [Model structure](#model)
+    5. [Store structure](#store)
+    6. [Component structure](#component)
 
 
 ## TODO <a href="#" name="todo"></a>
@@ -16,13 +26,13 @@
 * Vuex [vuex.vuejs.org]
 * ...and a basic understanding of how both of these work (together)
 
-## Latest version
+## Latest version <a href="#" name="version"></a>
 
 0.1.0:
 * added support for namespaced stores
 * added documentation for namespaced stores
 
-## Installation
+## Installation <a href="#" name="rerequsisits"></a>
 
 ```
 npm install @adelholtz/Vuetility
@@ -32,7 +42,7 @@ yarn add @adelholtz/Vuetility
 ```
 
 
-## Introduction
+## Introduction <a href="#" name="introduction"></a>
 
 Contains basic logic for generic (Vuex)store and (Vue)component usage, by auto-generating (Vue)computed properties and (Vuex)state variables from provided models.
 
@@ -46,7 +56,7 @@ __Project Goals:__
 * no need to write code in your store that handles the update/setting process of model data
 * support of multiple models per store/component
 
-## Usage
+## Usage <a href="#" name="usage"></a>
 
 1. create  a Model; => see 'Model Structure' for more Information
 2. create a VueComponent
@@ -78,7 +88,7 @@ __Project Goals:__
         }, basicStore)
     ```
 
-### Type Security
+### Type Security <a href="#" name="security"></a>
 When instantiating your your mixin inside your custom component you can set the desired
 'type security' level.
 ```javascript
@@ -103,7 +113,7 @@ Available typeSecurityLevels:
 * off: completey disable type security features (no log, no errors)
 * log: only output errors into the console but ignore them otherwise
 
-### Model white/blackList
+### Model white/blackList  <a href="#" name="whitelist"></a>
 
 Attention: whiteList > blackList (always!!)
 
@@ -131,7 +141,7 @@ whiteList and blackList can be passed at the same time.
     ]
 ```
 
-### Usage with namespaced store modules
+### Usage with namespaced store modules <a href="#" name="namespaced"></a>
 ```javascript
     mixins: [
         new BasicComponent({
@@ -151,7 +161,7 @@ whiteList and blackList can be passed at the same time.
     ]
 ```
 
-### Model structure
+### Model structure <a href="#" name="model"></a>
 
 * type: String, Number, Object, JSON ect.
     * mandatory
@@ -210,7 +220,7 @@ export class MyModel{
 
 ```
 
-### Basic store
+### Basic store <a href="#" name="store"></a>
 
 To create a new instance of BasicStore, pass an instance of the model you want to use.
 You can override stuff from the BasicStore in your local store.
@@ -231,7 +241,7 @@ export default _.merge({
 }, basicStore);
 ```
 
-### Basic Component
+### Basic Component <a href="#" name="store"></a>
 
 you can define as many computed and or methods ect as you like;
 the BasicComponent will be merged into your component.
