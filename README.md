@@ -1,16 +1,36 @@
 # Vuetility
 
-## TODO
+1. [Todo](#todo)
+2. [Prerequsisits](#rerequsisits)
+
+
+## TODO <a href="#" name="todo"></a>
 * get rid of the need for a constructor in the custom models
 * tests
 * improve readme
 * allow collection of models per store
 
-## Prerequsisits
+## Prerequsisits <a href="#" name="rerequsisits"></a>
 
 * Vue [vuejs.org]
 * Vuex [vuex.vuejs.org]
 * ...and a basic understanding of how both of these work (together)
+
+## Latest version
+
+0.1.0:
+* added support for namespaced stores
+* added documentation for namespaced stores
+
+## Installation
+
+```
+npm install @adelholtz/Vuetility
+
+yarn add @adelholtz/Vuetility
+
+```
+
 
 ## Introduction
 
