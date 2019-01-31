@@ -6,12 +6,12 @@
 4. [Installation](#installation)
 5. [Introduction](#introduction)
 6. [Usage](#usage)
-    a. [Type Security](#security)
-    b. [White and Blacklisting](#whitelist)
-    c. [Namespaced stores](#namespaced)
-    d. [Model structure](#model)
-    e. [Store structure](#store)
-    f. [Component structure](#component)
+    1. [Type Security](#security)
+    2. [White and Blacklisting](#whitelist)
+    3. [Namespaced stores](#namespaced)
+    4. [Model structure](#model)
+    5. [Store structure](#store)
+    6. [Component structure](#component)
 
 
 ## TODO <a href="#" name="todo"></a>
