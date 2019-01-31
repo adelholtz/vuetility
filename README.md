@@ -6,17 +6,15 @@
 4. [Installation](#installation)
 5. [Introduction](#introduction)
 6. [Usage](#usage)
-    1. [Type Security](#security)
-    2. [White and Blacklisting](#whitelist)
-    3. [Namespaced stores](#namespaced)
-    4. [Model structure](#model)
-    5. [Store structure](#store)
-    6. [Component structure](#component)
+    6.1. [Type Security](#security)
+    6.2. [White and Blacklisting](#whitelist)
+    6.3. [Namespaced stores](#namespaced)
+    6.4. [Model structure](#model)
+    6.5. [Store structure](#store)
+    6.6. [Component structure](#component)
 
 
 ## TODO <a href="#" name="todo"></a>
-* get rid of the need for a constructor in the custom models
-* tests
 * improve readme
 * allow collection of models per store
 
@@ -27,6 +25,25 @@
 * ...and a basic understanding of how both of these work (together)
 
 ## Latest version <a href="#" name="version"></a>
+
+0.2.0
+* added JSON as type for model properties
+* slightly refactored BasicComponent structure
+* fixed a bug that could lead to unintended side effects when type checking
+* if defaultValue in model properties is undefined it will now always be set to
+reflect the actual type of said property
+    * Example:
+    ```
+    //default value will be new String()  
+    'x': {
+        type: String,
+        computedType: 'default'
+    }
+    //default value will be {}     
+    'y': {
+        type: JSON
+    }    
+    ```
 
 0.1.0:
 * added support for namespaced stores

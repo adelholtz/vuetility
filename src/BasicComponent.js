@@ -21,12 +21,14 @@ export default class BasicComponent {
                 modelObjects,
                 function(modelObject) {
                     let preparedModel = this.prepare(modelObject);
-                    _.merge(computed, this.computed(preparedModel.model, preparedModel.nameSpace));
+                    this.nameSpace = preparedModel.nameSpace;
+                    _.merge(computed, this.computed(preparedModel.model));
                 }.bind(this)
             );
         } else {
             let preparedModel = this.prepare(modelObjects);
-            computed = this.computed(preparedModel.model, preparedModel.nameSpace);
+            this.nameSpace = preparedModel.nameSpace;
+            computed = this.computed(preparedModel.model);
         }
 
         return {
@@ -70,7 +72,7 @@ export default class BasicComponent {
      * @param  Object model
      * @return Object
      */
-    computed(model, nameSpace) {
+    computed(model) {
         let modelName = model.name();
         let modelProperties = model.basicModel();
         let computed = {};
@@ -82,13 +84,32 @@ export default class BasicComponent {
                     this,
                     key,
                     modelName,
-                    modelProperty,
-                    nameSpace
+                    modelProperty
                 );
             }.bind(this)
         );
 
         return computed;
+    }
+
+    /**
+     * commit new value to corresponding store (namespaced or plain)
+     *
+     * @param  BasicComponent basicComponent [operational scope]
+     * @param  JSON updateObject
+     *      structure: {
+     *          state: modelName,
+     *          key: key,
+     *          value: checkedValue
+     *        }
+     */
+    commitToStore(basicComponent, updateObject, context){
+        context = context || this._self;
+        if(basicComponent.nameSpace !== null){
+            basicComponent.store(context).commit(basicComponent.nameSpace+'/updateObject', updateObject);
+        }else{
+            basicComponent.store(context).mutations.updateObject(updateObject);
+        }
     }
 
     /**
@@ -100,7 +121,7 @@ export default class BasicComponent {
      * @param  Object modelProperty
      * @return Object
      */
-    selectComputed(key, modelName, modelProperty, nameSpace) {
+    selectComputed(key, modelName, modelProperty) {
         let basicComponent = this;
         return {
             get() {
@@ -131,19 +152,11 @@ export default class BasicComponent {
                     newValue
                 );
 
-                if(nameSpace !== null){
-                    basicComponent.store(this._self).commit(nameSpace+'/updateObject',{
-                        state: modelName,
-                        key: key,
-                        value: checkedValue
-                    });
-                }else{
-                    basicComponent.store(this._self).mutations.updateObject({
-                        state: modelName,
-                        key: key,
-                        value: checkedValue
-                    });
-                }
+                basicComponent.commitToStore(basicComponent,{
+                    state: modelName,
+                    key: key,
+                    value: checkedValue
+                });
             }
         };
     }
@@ -157,7 +170,7 @@ export default class BasicComponent {
      * @param  Object modelProperty
      * @return Object
      */
-    defaultComputed(key, modelName, modelProperty, nameSpace) {
+    defaultComputed(key, modelName, modelProperty) {
         let basicComponent = this;
         return {
             get() {
@@ -165,15 +178,13 @@ export default class BasicComponent {
                     this,
                     key,
                     modelName,
-                    modelProperty,
-                    nameSpace
+                    modelProperty
                 );
             },
             set(newValue) {
                 if (newValue === null) {
                     return;
                 }
-
                 let checkedValue = basicComponent.checkValueTypeSecurity(
                     key,
                     modelName,
@@ -181,20 +192,11 @@ export default class BasicComponent {
                     newValue
                 );
 
-                if(nameSpace !== null){
-                    basicComponent.store(this._self).commit(nameSpace+'/updateObject',{
-                        state: modelName,
-                        key: key,
-                        value: checkedValue
-                    });
-                }else{
-                    basicComponent.store(this._self).mutations.updateObject({
-                        state: modelName,
-                        key: key,
-                        value: checkedValue
-                    });
-                }
-
+                basicComponent.commitToStore(basicComponent,{
+                    state: modelName,
+                    key: key,
+                    value: checkedValue
+                });
             }
         };
     }
@@ -210,50 +212,52 @@ export default class BasicComponent {
      * @param  Object modelProperty
      * @return string
      */
-    propertyValue(context, key, modelName, modelProperty, nameSpace) {
-        let basicComponent = this;
+    propertyValue(context, key, modelName, modelProperty) {
         let propertyValue;
-        if(nameSpace !== null){
+        if(this.nameSpace !== null){
+            console.log(this.store(context).state[this.nameSpace]);
             propertyValue = _.get(
-                basicComponent.store(context).state[nameSpace][modelName],
+                this.store(context).state[this.nameSpace][modelName],
                 key,
                 false
             );
         }else{
             propertyValue = _.get(
-                basicComponent.store(context).state[modelName],
+                this.store(context).state[modelName],
                 key,
                 false
             );
         }
         if(propertyValue === false){
-            propertyValue = (
-                modelProperty.defaultValue !== undefined
-                    ? basicComponent.setDefaultValue(modelName, key, modelProperty.defaultValue, context, nameSpace)
-                    : ''
-            );
+            if(modelProperty.defaultValue !== undefined){
+                this.commitToStore(this, {
+                    state: modelName,
+                    key: key,
+                    value: modelProperty.defaultValue
+                }, context);
+                propertyValue = modelProperty.defaultValue;
+
+            }else{
+                if(modelProperty.type === JSON){
+                    propertyValue = {};
+                }else{
+                    propertyValue = modelProperty.type();
+                }
+            }
         }
+
+        this.checkValueTypeSecurity(
+            key,
+            modelName,
+            modelProperty,
+            propertyValue
+        );
+
         if (typeof modelProperty.renderer === 'function') {
             propertyValue = modelProperty.renderer(propertyValue);
         }
 
         return propertyValue;
-    }
-
-    setDefaultValue(modelName, key, defaultValue, context, nameSpace){
-        if(nameSpace !== null){
-            this.store(this._self).commit(nameSpace+'/updateObject',{
-                state: modelName,
-                key: key,
-                value: defaultValue
-            });
-        }else{
-            this.store(context).mutations.updateObject({
-                state: modelName,
-                key: key,
-                value: defaultValue
-            });
-        }
     }
 
     /**
@@ -282,8 +286,18 @@ export default class BasicComponent {
      * @throws Error Message
      */
     checkValueTypeSecurity(key, modelName, modelProperty, value) {
-        let expectedInstance = new modelProperty.type();
+        let expectedInstance;
+        if(modelProperty.type === JSON){
+            expectedInstance = JSON;
+        }else{
+            expectedInstance = new modelProperty.type();
+        }
+
         let typesAreMatching = false;
+
+        if(expectedInstance instanceof Object){
+            typesAreMatching = _.isObject(value);
+        }
 
         if (expectedInstance instanceof Number) {
             typesAreMatching = _.isNumber(value);
@@ -295,6 +309,9 @@ export default class BasicComponent {
                 }
                 typesAreMatching = _.isNumber(value);
             }
+        }
+        if (expectedInstance instanceof String) {
+            typesAreMatching = _.isString(value);
         }
         if (expectedInstance instanceof String) {
             typesAreMatching = _.isString(value);
