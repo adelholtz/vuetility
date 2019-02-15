@@ -320,12 +320,16 @@ export default class BasicComponent {
             if (!typesAreMatching) {
                 if(value==='true'){
                     value = true;
+                    typesAreMatching = true;
                 }else if(value==='false'){
                     value = false;
+                    typesAreMatching = true;
                 }else if(value === 0){
                     value = false;
+                    typesAreMatching = true;
                 }else if(value === 1){
                     value = true;
+                    typesAreMatching = true;
                 }
             }
         }
