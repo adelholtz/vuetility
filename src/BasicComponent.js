@@ -105,7 +105,7 @@ export default class BasicComponent {
      */
     commitToStore(basicComponent, updateObject, context){
         context = context || this._self;
-        if(basicComponent.nameSpace !== null){
+        if(!_.isEmpty(basicComponent.nameSpace)){
             basicComponent.store(context).commit(basicComponent.nameSpace+'/updateObject', updateObject);
         }else{
             basicComponent.store(context).mutations.updateObject(updateObject);
@@ -214,8 +214,7 @@ export default class BasicComponent {
      */
     propertyValue(context, key, modelName, modelProperty) {
         let propertyValue;
-        if(this.nameSpace !== null){
-            console.log(this.store(context).state[this.nameSpace]);
+        if(!_.isEmpty(this.nameSpace)){
             propertyValue = _.get(
                 this.store(context).state[this.nameSpace][modelName],
                 key,
@@ -266,9 +265,9 @@ export default class BasicComponent {
      * @return Vuex
      */
     store(context) {
-        if (context.$store !== undefined) {
+        if (!_.isEmpty(context.$store)) {
             return context.$store;
-        } else if (context.$storeWrapper !== undefined) {
+        } else if (!_.isEmpty(context.$storeWrapper)) {
             return context.$storeWrapper;
         }
 
