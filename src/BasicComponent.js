@@ -156,7 +156,7 @@ export default class BasicComponent {
                     state: modelName,
                     key: key,
                     value: checkedValue
-                });
+                }, this._self);
             }
         };
     }
@@ -196,7 +196,7 @@ export default class BasicComponent {
                     state: modelName,
                     key: key,
                     value: checkedValue
-                });
+                }, this._self);
             }
         };
     }
