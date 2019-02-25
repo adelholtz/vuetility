@@ -84,7 +84,8 @@ export default class BasicComponent {
                     this,
                     key,
                     modelName,
-                    modelProperty
+                    modelProperty,
+                    this.nameSpace
                 );
             }.bind(this)
         );
@@ -103,10 +104,10 @@ export default class BasicComponent {
      *          value: checkedValue
      *        }
      */
-    commitToStore(basicComponent, updateObject, context){
+    commitToStore(basicComponent, updateObject, context, nameSpace){
         context = context || this._self;
-        if(!_.isEmpty(basicComponent.nameSpace)){
-            basicComponent.store(context).commit(basicComponent.nameSpace+'/updateObject', updateObject);
+        if(!_.isEmpty(nameSpace)){
+            basicComponent.store(context).commit(nameSpace+'/updateObject', updateObject);
         }else{
             basicComponent.store(context).mutations.updateObject(updateObject);
         }
@@ -121,7 +122,7 @@ export default class BasicComponent {
      * @param  Object modelProperty
      * @return Object
      */
-    selectComputed(key, modelName, modelProperty) {
+    selectComputed(key, modelName, modelProperty, nameSpace) {
         let basicComponent = this;
         return {
             get() {
@@ -130,13 +131,15 @@ export default class BasicComponent {
                         this,
                         key,
                         modelName,
-                        modelProperty
+                        modelProperty,
+                        nameSpace
                     ),
                     value: basicComponent.propertyValue(
                         this,
                         key,
                         modelName,
-                        modelProperty
+                        modelProperty,
+                        nameSpace
                     )
                 };
             },
@@ -155,7 +158,8 @@ export default class BasicComponent {
                 basicComponent.commitToStore(basicComponent,{
                     state: modelName,
                     key: key,
-                    value: checkedValue
+                    value: checkedValue,
+                    nameSpace
                 }, this._self);
             }
         };
@@ -170,7 +174,7 @@ export default class BasicComponent {
      * @param  Object modelProperty
      * @return Object
      */
-    defaultComputed(key, modelName, modelProperty) {
+    defaultComputed(key, modelName, modelProperty, nameSpace) {
         let basicComponent = this;
         return {
             get() {
@@ -178,13 +182,15 @@ export default class BasicComponent {
                     this,
                     key,
                     modelName,
-                    modelProperty
+                    modelProperty,
+                    nameSpace
                 );
             },
             set(newValue) {
                 if (newValue === null) {
                     return;
                 }
+
                 let checkedValue = basicComponent.checkValueTypeSecurity(
                     key,
                     modelName,
@@ -195,7 +201,8 @@ export default class BasicComponent {
                 basicComponent.commitToStore(basicComponent,{
                     state: modelName,
                     key: key,
-                    value: checkedValue
+                    value: checkedValue,
+                    nameSpace
                 }, this._self);
             }
         };
@@ -212,11 +219,11 @@ export default class BasicComponent {
      * @param  Object modelProperty
      * @return string
      */
-    propertyValue(context, key, modelName, modelProperty) {
+    propertyValue(context, key, modelName, modelProperty, nameSpace) {
         let propertyValue;
-        if(!_.isEmpty(this.nameSpace)){
+        if(!_.isEmpty(nameSpace)){
             propertyValue = _.get(
-                this.store(context).state[this.nameSpace][modelName],
+                this.store(context).state[nameSpace][modelName],
                 key,
                 false
             );
@@ -227,6 +234,7 @@ export default class BasicComponent {
                 false
             );
         }
+
         if(propertyValue === false){
             if(modelProperty.defaultValue !== undefined){
                 this.commitToStore(this, {
