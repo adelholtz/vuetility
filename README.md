@@ -26,6 +26,14 @@
 
 ## Latest version <a href="#" name="version"></a>
 
+**Attention:**
+If you are interested in using this package i recommend waiting for Version 0.4.0.
+With the release of 0.3.0 i began to rewrite core components which will have an impact on how to use and implement the package in your projects.
+On top of this the readme and examples are no longer up to date.
+
+0.3.0
+* beginning a structural refactoring process
+
 0.2.0
 * added JSON as type for model properties
 * slightly refactored BasicComponent structure
