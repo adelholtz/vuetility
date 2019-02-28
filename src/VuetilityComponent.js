@@ -1,6 +1,7 @@
 /* global _ */
 
 import VuetilityCore from './VuetilityCore.js';
+import VuetilityModuleCore from './VuetilityModuleCore.js';
 
 export default {
 
