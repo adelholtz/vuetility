@@ -9,21 +9,25 @@ export default class Vuetility{
 
     constructor(structure){
         let storeModules = {};
-        
+
         structure.map((entity) => {
             let storeModuleName = null;
             let storeModule = null;
             let basicStore = {};
             for(let name in entity){
                 if(storeModule !== null){
+                    storeModule.storeModels.push(name);
+                    // merge all models
                     basicStore = new BasicStore(new entity[name]());
+                    storeModule = _.merge(storeModule, basicStore);
                     continue;
                 }
+
                 storeModuleName = name;
                 storeModule = entity[name];
+                storeModule.storeModels = [];
             }
 
-            storeModule = _.merge(storeModule, basicStore);
             storeModules[storeModuleName] = storeModule;
         });
 

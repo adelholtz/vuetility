@@ -1,68 +1,32 @@
-/* global _ */
+import TypeSecurity from './TypeSecurity.js';
 
-export default class BasicComponent {
-    /**
-     * Returns basic VueComponent structure
-     * {
-     *      computed: {}
-     * }
-     *
-     * @param Array/Object modelObjects // can either be an array of objects or a single object
-     * @param string typeSecurityLevel // can be log or off
-     * @return Object
-     */
-    constructor(modelObjects, typeSecurityLevel = null) {
-        this.setTypeSecurityLevel(typeSecurityLevel);
+export default class VuetilityCore {
 
+    constructor(componentScope){
+        this.componentScope = componentScope;
+    }
+
+    init(modules = false){
         let computed = {};
-
-        if (_.isArray(modelObjects)) {
-            _.each(
-                modelObjects,
-                function(modelObject) {
-                    let preparedModel = this.prepare(modelObject);
-                    this.nameSpace = preparedModel.nameSpace;
-                    _.merge(computed, this.computed(preparedModel.model));
-                }.bind(this)
-            );
-        } else {
-            let preparedModel = this.prepare(modelObjects);
-            this.nameSpace = preparedModel.nameSpace;
-            computed = this.computed(preparedModel.model);
+        if(!modules){
+            return;
         }
+        modules.forEach((module) => {
+            let storeModule = this.componentScope.$store._modules.root._children[module];
+            if(storeModule !== undefined){
+                if(storeModule._rawModule.storeModels !== undefined){
+                    storeModule._rawModule.storeModels.forEach((storeModel) => {
+                        let modelProperties = this.componentScope.$store.state[module][storeModel+'Definition'];
+                        computed = this.computed(modelProperties, storeModel, module);
+                    });
+                }
+            }
 
-        return {
-            computed
-        };
-    }
-
-    prepare(modelObjects){
-        let model, nameSpace;
-        if(typeof modelObjects.model !== 'function'){
-            model = modelObjects.model;
-        }else{
-            model = modelObjects;
-        }
-        if(modelObjects.nameSpace){
-            nameSpace = modelObjects.nameSpace;
-        }
-
-        return {
-            model, nameSpace
-        };
-    }
-
-    setTypeSecurityLevel(typeSecurityLevel) {
-        this.logTypeSecurityError = false;
-        this.enforceTypeSecurity = true;
-        if (typeSecurityLevel === 'log') {
-            this.logTypeSecurityError = true;
-            this.enforceTypeSecurity = false;
-        }
-        if (typeSecurityLevel === 'off') {
-            this.logTypeSecurityError = false;
-            this.enforceTypeSecurity = false;
-        }
+            if(this.componentScope.$options.computed === undefined){
+                this.componentScope.$options.computed = {};
+            }
+            _.merge(this.componentScope.$options.computed, computed);
+        });
     }
 
     /**
@@ -72,9 +36,7 @@ export default class BasicComponent {
      * @param  Object model
      * @return Object
      */
-    computed(model) {
-        let modelName = model.name();
-        let modelProperties = model.basicModel();
+    computed(modelProperties, modelName, nameSpace = false) {
         let computed = {};
         _.each(
             modelProperties,
@@ -85,15 +47,8 @@ export default class BasicComponent {
                     key,
                     modelName,
                     modelProperty,
-                    this.nameSpace
+                    nameSpace
                 );
-                // computed[key] = eval('this.' + type + 'Computed').call(
-                //     this,
-                //     key,
-                //     modelName,
-                //     modelProperty,
-                //     this.nameSpace
-                // );
             }.bind(this)
         );
 
@@ -155,7 +110,7 @@ export default class BasicComponent {
                     return;
                 }
 
-                let checkedValue = basicComponent.checkValueTypeSecurity(
+                let checkedValue = TypeSecurity.checkValueTypeSecurity(
                     key,
                     modelName,
                     modelProperty,
@@ -198,7 +153,7 @@ export default class BasicComponent {
                     return;
                 }
 
-                let checkedValue = basicComponent.checkValueTypeSecurity(
+                let checkedValue = TypeSecurity.checkValueTypeSecurity(
                     key,
                     modelName,
                     modelProperty,
@@ -260,7 +215,7 @@ export default class BasicComponent {
             }
         }
 
-        this.checkValueTypeSecurity(
+        TypeSecurity.checkValueTypeSecurity(
             key,
             modelName,
             modelProperty,
@@ -289,118 +244,4 @@ export default class BasicComponent {
         throw 'BasicComponent Error: Could not find a valid store!';
     }
 
-    /**
-     * Check if the actual type of value is matching the expected type of value
-     *
-     * @param  string key
-     * @param  string modelName
-     * @param  Object modelProperty
-     * @param  string value
-     * @returns Number/String/Boolean
-     * @throws Error Message
-     */
-    checkValueTypeSecurity(key, modelName, modelProperty, value) {
-        let expectedInstance;
-        if(modelProperty.type === JSON){
-            expectedInstance = JSON;
-        }else{
-            expectedInstance = new modelProperty.type();
-        }
-
-        let typesAreMatching = false;
-
-        if(expectedInstance instanceof Object){
-            typesAreMatching = _.isObject(value);
-        }
-
-        if (expectedInstance instanceof Number) {
-            typesAreMatching = _.isNumber(value);
-            if (!typesAreMatching) {
-                if(value.match(/^\d+\.\d+$/) !== null){
-                    value = Number.parseFloat(value);
-                }else{
-                    value = Number.parseInt(value);
-                }
-                typesAreMatching = _.isNumber(value);
-            }
-        }
-        if (expectedInstance instanceof String) {
-            typesAreMatching = _.isString(value);
-        }
-        if (expectedInstance instanceof Array) {
-            typesAreMatching = _.isArray(value);
-        }
-        if (expectedInstance instanceof Boolean) {
-            typesAreMatching = _.isBoolean(value);
-            if (!typesAreMatching) {
-                if(value==='true'){
-                    value = true;
-                    typesAreMatching = true;
-                }else if(value==='false'){
-                    value = false;
-                    typesAreMatching = true;
-                }else if(value === 0){
-                    value = false;
-                    typesAreMatching = true;
-                }else if(value === 1){
-                    value = true;
-                    typesAreMatching = true;
-                }
-            }
-        }
-
-        if (!typesAreMatching) {
-            let errorMessage =
-                '\nValue type discrepancy detected:\n' +
-                'Model: ' +
-                modelName +
-                '\n' +
-                'Key: ' +
-                key +
-                '\n' +
-                'Expected Type: ' +
-                modelProperty.type +
-                '\n' +
-                'Actual Type: ' +
-                this.getActualTypeOfValue(value, modelProperty.type);
-
-            if (this.enforceTypeSecurity) {
-                throw errorMessage;
-            } else if (this.logTypeSecurityError) {
-                console.log(errorMessage);
-            }
-        }
-        return value;
-    }
-
-    /**
-     * [getActualTypoOfValue description]
-     * @param  string value
-     * @return string/String/Number/Object ...
-     */
-    getActualTypeOfValue(value) {
-        try {
-            if(_.isBoolean(value)){
-                return Boolean;
-            }
-            if(_.isString(value)){
-                return String;
-            }
-            if(_.isArray(value)){
-                return Array;
-            }
-            if(value === {}){
-                return JSON;
-            }
-            if(_.isObject(value)){
-                return Object;
-            }
-            if(_.isNumber(value)){
-                return Number;
-            }
-
-        } catch (Exception) {
-            return typeof value;
-        }
-    }
 }

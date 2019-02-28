@@ -81,6 +81,7 @@ export default class BasicStore{
     state(model, modelName){
         let state = {};
         state[modelName] = {};
+        state[modelName+'Definition'] = model;
         _.each(model, function(definition, key){
             let value = undefined;
             if(definition.type === JSON){
