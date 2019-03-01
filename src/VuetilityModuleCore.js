@@ -66,12 +66,11 @@ export default class VuetilityModuleCore {
      *          value: checkedValue
      *        }
      */
-    commitToStore(basicComponent, updateObject, context, nameSpace){
-        context = context || this._self;
+    commitToStore(basicComponent, updateObject, nameSpace){
         if(!_.isEmpty(nameSpace)){
-            basicComponent.store(context).commit(nameSpace+'/updateObject', updateObject);
+            basicComponent.componentScope.$store.commit(nameSpace+'/updateObject', updateObject);
         }else{
-            basicComponent.store(context).mutations.updateObject(updateObject);
+            basicComponent.componentScope.$store.mutations.updateObject(updateObject);
         }
     }
 
@@ -90,14 +89,12 @@ export default class VuetilityModuleCore {
             get() {
                 return {
                     text: basicComponent.propertyValue(
-                        this,
                         key,
                         modelName,
                         modelProperty,
                         nameSpace
                     ),
                     value: basicComponent.propertyValue(
-                        this,
                         key,
                         modelName,
                         modelProperty,
@@ -122,7 +119,7 @@ export default class VuetilityModuleCore {
                     key: key,
                     value: checkedValue,
                     nameSpace
-                }, this._self);
+                });
             }
         };
     }
@@ -141,7 +138,6 @@ export default class VuetilityModuleCore {
         return {
             get() {
                 return basicComponent.propertyValue(
-                    this,
                     key,
                     modelName,
                     modelProperty,
@@ -165,7 +161,7 @@ export default class VuetilityModuleCore {
                     key: key,
                     value: checkedValue,
                     nameSpace
-                }, this._self);
+                });
             }
         };
     }
@@ -181,17 +177,17 @@ export default class VuetilityModuleCore {
      * @param  Object modelProperty
      * @return string
      */
-    propertyValue(context, key, modelName, modelProperty, nameSpace) {
+    propertyValue(key, modelName, modelProperty, nameSpace) {
         let propertyValue;
         if(!_.isEmpty(nameSpace)){
             propertyValue = _.get(
-                this.store(context).state[nameSpace][modelName],
+                this.componentScope.$store.state[nameSpace][modelName],
                 key,
                 false
             );
         }else{
             propertyValue = _.get(
-                this.store(context).state[modelName],
+                this.componentScope.$store.state[modelName],
                 key,
                 false
             );
@@ -203,7 +199,7 @@ export default class VuetilityModuleCore {
                     state: modelName,
                     key: key,
                     value: modelProperty.defaultValue
-                }, context);
+                });
                 propertyValue = modelProperty.defaultValue;
 
             }else{
@@ -229,19 +225,5 @@ export default class VuetilityModuleCore {
         return propertyValue;
     }
 
-    /**
-     * Get Vue Component store
-     * @param  VueComponent context
-     * @return Vuex
-     */
-    store(context) {
-        if (!_.isEmpty(context.$store)) {
-            return context.$store;
-        } else if (!_.isEmpty(context.$storeWrapper)) {
-            return context.$storeWrapper;
-        }
-
-        throw 'BasicComponent Error: Could not find a valid store!';
-    }
 
 }
