@@ -3,6 +3,7 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import {BasicStore} from '@adelholtz/vuetility';
+import {BasicModel} from '@adelholtz/vuetility';
 Vue.use(Vuex);
 
 export default class Vuetility{
@@ -14,11 +15,17 @@ export default class Vuetility{
             let storeModuleName = null;
             let storeModule = null;
             let basicStore = {};
+            // entities are either whole stores or models
+            // first entity always is expected to be a store
+            // all other entities are models
             for(let name in entity){
                 if(storeModule !== null){
                     storeModule.storeModels.push(name);
-                    // merge all models
-                    basicStore = new BasicStore(new entity[name](), name);
+                    // generate new model instance
+                    let modelEntity = new entity[name]();
+                    _.merge(modelEntity, new BasicModel({}));
+                    // add state variables and other basic stuff
+                    basicStore = new BasicStore(modelEntity, name);
                     storeModule = _.merge(storeModule, basicStore);
                     continue;
                 }

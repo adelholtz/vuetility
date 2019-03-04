@@ -1,20 +1,9 @@
-/*  global _ */
-import BasicStore from '@src/BasicStore';
-import {MyModel} from '@example/model/MyModel.js';
-const basicStore = new BasicStore(new MyModel());
+import {ModelA} from '@example/model/ModelA.js';
+import {StoreModuleA} from '@example/store/modules/StoreModuleA.js';
+import {Vuetility} from '@adelholtz/vuetility';
 
-const mutationTypes = {};
-const actionTypes = {};
-const state = {};
-const getters = {};
-const mutations = {};
-const actions = {};
+Vue.use(Vuex);
 
-export default _.merge({
-    mutationTypes,
-    actionTypes,
-    state,
-    getters,
-    mutations,
-    actions
-}, basicStore);
+const vuetility = new Vuetility([
+    {StoreModuleA, ModelA}
+]);

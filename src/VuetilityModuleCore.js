@@ -26,7 +26,8 @@ export default class VuetilityModuleCore {
             if(this.componentScope.$options.computed === undefined){
                 this.componentScope.$options.computed = {};
             }
-            _.merge(this.componentScope.$options.computed, computed);
+            _.merge(computed, this.componentScope.$options.computed);
+            this.componentScope.$options.computed = computed;
         });
     }
 
