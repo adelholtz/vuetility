@@ -102,6 +102,8 @@ Example:
 },
 ```
 ## Usage <a href="#" name="usage"></a>
+Find an example implementation in the **example** folder.
+
 Vuetility is consisting of two parts:
 * a VueX part which enhances the VueX base and ass state variables to your stores
 * a Vue Component part wich enables you to grab the value of state variables from your stores through computed variables
@@ -141,7 +143,7 @@ This will leave you with a state store structure like:
     * 'StoreModuleA'
         * 'ModelA'
 
-[alt text](https://github.com/adelholtz/vuetility/docs/img/state_structure.png "Example Structure")
+[alt text](https://raw.githubusercontent.com/adelholtz/vuetility/master/docs/img/state_structure.png "Example Structure")
 
 Indepth analysis of the first array entry:
 * StoreModuleA
