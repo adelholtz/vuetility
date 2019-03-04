@@ -143,7 +143,7 @@ This will leave you with a state store structure like:
     * 'StoreModuleA'
         * 'ModelA'
 
-![](./docs/img/state_structure =400x)
+![](./docs/img/state_structure.png =400x)
 
 Indepth analysis of the first array entry:
 * StoreModuleA
