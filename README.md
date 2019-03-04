@@ -143,7 +143,7 @@ This will leave you with a state store structure like:
     * 'StoreModuleA'
         * 'ModelA'
 
-![](./docs/img/state_structure.png =400x)
+![](https://raw.githubusercontent.com/adelholtz/vuetility/master/docs/img/state_structure.pnh =400x)
 
 Indepth analysis of the first array entry:
 * StoreModuleA
