@@ -18,7 +18,7 @@ export default class Vuetility{
                 if(storeModule !== null){
                     storeModule.storeModels.push(name);
                     // merge all models
-                    basicStore = new BasicStore(new entity[name]());
+                    basicStore = new BasicStore(new entity[name](), name);
                     storeModule = _.merge(storeModule, basicStore);
                     continue;
                 }

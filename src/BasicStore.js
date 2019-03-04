@@ -7,15 +7,10 @@ export default class BasicStore{
      * @param Array/Object modelObjects Object or Array of objects
      * @return Object
      */
-    constructor(modelObjects){
+    constructor(modelObjects, nameSpace = false){
         let state = {};
-        if(_.isArray(modelObjects)){
-            _.each(modelObjects, function(modelObject){
-                _.merge(state, this.state(modelObject.basicModel(), modelObject.name()));
-            }.bind(this));
-        }else{
-            state = this.state(modelObjects.basicModel(), modelObjects.name());
-        }
+
+        state = this.state(modelObjects.basicModel(), nameSpace);
 
         this.mutationTypes = {
             UPDATE_OBJECT: 'updateObject',

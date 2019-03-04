@@ -1,3 +1,4 @@
+/* global _ */
 import TypeSecurity from './TypeSecurity.js';
 
 export default class VuetilityModuleCore {
@@ -34,9 +35,11 @@ export default class VuetilityModuleCore {
      * create computed 'variables' for every single one
      *
      * @param  Object model
+     * @param String modelName
+     * @param nameSpace
      * @return Object
      */
-    computed(modelProperties, modelName, nameSpace = false) {
+    computed(modelProperties, modelName, nameSpace) {
         let computed = {};
         _.each(
             modelProperties,
@@ -54,26 +57,6 @@ export default class VuetilityModuleCore {
 
         return computed;
     }
-
-    /**
-     * commit new value to corresponding store (namespaced or plain)
-     *
-     * @param  BasicComponent basicComponent [operational scope]
-     * @param  JSON updateObject
-     *      structure: {
-     *          state: modelName,
-     *          key: key,
-     *          value: checkedValue
-     *        }
-     */
-    commitToStore(basicComponent, updateObject, nameSpace){
-        if(!_.isEmpty(nameSpace)){
-            basicComponent.componentScope.$store.commit(nameSpace+'/updateObject', updateObject);
-        }else{
-            basicComponent.componentScope.$store.mutations.updateObject(updateObject);
-        }
-    }
-
     /**
      * Basic computed for select fields;
      * get() returns JSON instead of a single value
@@ -103,23 +86,7 @@ export default class VuetilityModuleCore {
                 };
             },
             set(newValue) {
-                if (newValue === null) {
-                    return;
-                }
-
-                let checkedValue = TypeSecurity.checkValueTypeSecurity(
-                    key,
-                    modelName,
-                    modelProperty,
-                    newValue
-                );
-
-                basicComponent.commitToStore(basicComponent,{
-                    state: modelName,
-                    key: key,
-                    value: checkedValue,
-                    nameSpace
-                });
+                basicComponent.computedSetter(basicComponent, newValue, key, modelName, modelProperty, nameSpace);
             }
         };
     }
@@ -145,25 +112,29 @@ export default class VuetilityModuleCore {
                 );
             },
             set(newValue) {
-                if (newValue === null) {
-                    return;
-                }
-
-                let checkedValue = TypeSecurity.checkValueTypeSecurity(
-                    key,
-                    modelName,
-                    modelProperty,
-                    newValue
-                );
-
-                basicComponent.commitToStore(basicComponent,{
-                    state: modelName,
-                    key: key,
-                    value: checkedValue,
-                    nameSpace
-                });
+                basicComponent.computedSetter(basicComponent, newValue, key, modelName, modelProperty, nameSpace);
             }
         };
+    }
+
+    computedSetter(basicComponent, newValue, key, modelName, modelProperty, nameSpace){
+        if (newValue === null) {
+            return;
+        }
+
+        let checkedValue = TypeSecurity.checkValueTypeSecurity(
+            key,
+            modelName,
+            modelProperty,
+            newValue
+        );
+
+        basicComponent.componentScope.$store.commit(nameSpace+'/updateObject', {
+            state: modelName,
+            key: key,
+            value: checkedValue,
+            nameSpace
+        });
     }
 
     /**
@@ -195,10 +166,11 @@ export default class VuetilityModuleCore {
 
         if(propertyValue === false){
             if(modelProperty.defaultValue !== undefined){
-                this.commitToStore(this, {
+                this.componentScope.$store.commit(nameSpace+'/updateObject', {
                     state: modelName,
                     key: key,
-                    value: modelProperty.defaultValue
+                    value: modelProperty.defaultValue,
+                    nameSpace
                 });
                 propertyValue = modelProperty.defaultValue;
 
