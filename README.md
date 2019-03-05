@@ -8,7 +8,7 @@
 
 
 ## TODO <a href="#" name="todo"></a>
-* finish refactor
+* core implementation for non namespaced stores
 
 ## Prerequsisits <a href="#" name="rerequsisits"></a>
 
@@ -17,6 +17,11 @@
 * ...and a basic understanding of how both of these work (together)
 
 ## Latest version <a href="#" name="version"></a>
+
+0.4.1
+* add typescript module declaration
+* add better Documentation
+* reintroduce type security
 
 0.4.0
 * complete rewrite of the core concept!
