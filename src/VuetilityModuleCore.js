@@ -3,8 +3,9 @@ import TypeSecurity from './TypeSecurity.js';
 
 export default class VuetilityModuleCore {
 
-    constructor(componentScope){
+    constructor(componentScope, typeSecurityLevel){
         this.componentScope = componentScope;
+        this.securityLevel = typeSecurityLevel;
     }
 
     init(modules = false){
@@ -29,6 +30,12 @@ export default class VuetilityModuleCore {
             _.merge(computed, this.componentScope.$options.computed);
             this.componentScope.$options.computed = computed;
         });
+        this.typeSecurityLevel(this.securityLevel);
+        return this;
+    }
+
+    typeSecurityLevel(level){
+        TypeSecurity.setTypeSecurityLevel(level);
     }
 
     /**

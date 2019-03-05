@@ -3,6 +3,7 @@
     "version": "0.4.0",
     "description": "Basic utilities for Vue and Vuex",
     "main": "index.js",
+    "types": "index.d.ts",
     "homepage": "https://github.com/adelholtz/vuetility",
     "bugs": "https://github.com/adelholtz/vuetility/issues",
     "repository": "https://github.com/adelholtz/vuetility.git",
@@ -36,18 +37,18 @@
         "karma-junit-reporter": "^1.2.0",
         "karma-summary-reporter": "^1.5.1",
         "karma-webpack": "^3.0.5",
+        "node-sass": "^4.11.0",
+        "sass-loader": "^7.1.0",
         "vue-loader": "^15.4.2",
-        "vue-template-compiler": "^2.5.17",
+        "vue-template-compiler": "^2.6.8",
         "vuepress": "^1.0.0-alpha.35",
+        "vuepress-theme-millidocs": "^0.5.2",
         "webpack": "^4.20.2",
         "webpack-cli": "^3.1.1"
     },
     "dependencies": {
         "lodash": "^4.17.4",
-        "node-sass": "^4.11.0",
-        "sass-loader": "^7.1.0",
-        "vue": "^2.5.17",
-        "vuepress-theme-millidocs": "^0.5.2",
-        "vuex": "^3.0.1"
+        "vue": "^2.6.8",
+        "vuex": "^3.1.0"
     }
 }

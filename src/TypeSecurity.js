@@ -25,6 +25,7 @@ export default class TypeSecurity{
      * @throws Error Message
      */
     static checkValueTypeSecurity(key, modelName, modelProperty, value) {
+
         let expectedInstance;
         if(modelProperty.type === JSON){
             expectedInstance = JSON;
@@ -89,7 +90,7 @@ export default class TypeSecurity{
                 'Actual Type: ' +
                 TypeSecurity.getActualTypeOfValue(value, modelProperty.type);
 
-            if (this.enforceTypeSecurity) {                
+            if (this.enforceTypeSecurity) {
                 throw errorMessage;
             } else if (this.logTypeSecurityError) {
                 console.log(errorMessage);
