@@ -18,6 +18,8 @@
 
 ## Latest version <a href="#" name="version"></a>
 
+[![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
+
 0.4.1
 * add typescript module declaration
 * add better Documentation
