@@ -7,8 +7,8 @@
     <meta name="description" content="My docs description">
     
     
-    <link rel="preload" href="/vuetility/assets/css/0.styles.20d8d53e.css" as="style"><link rel="preload" href="/vuetility/assets/js/app.c8ca7821.js" as="script"><link rel="preload" href="/vuetility/assets/js/8.9af657d3.js" as="script"><link rel="prefetch" href="/vuetility/assets/js/10.b05d27b4.js"><link rel="prefetch" href="/vuetility/assets/js/2.4eaeffc4.js"><link rel="prefetch" href="/vuetility/assets/js/3.8b4110f6.js"><link rel="prefetch" href="/vuetility/assets/js/4.7fda2e1f.js"><link rel="prefetch" href="/vuetility/assets/js/5.c9f0f16e.js"><link rel="prefetch" href="/vuetility/assets/js/6.002fa6d4.js"><link rel="prefetch" href="/vuetility/assets/js/7.be9bf23f.js"><link rel="prefetch" href="/vuetility/assets/js/9.8b8dabee.js">
-    <link rel="stylesheet" href="/vuetility/assets/css/0.styles.20d8d53e.css">
+    <link rel="preload" href="/vuetility/assets/css/0.styles.6a599c48.css" as="style"><link rel="preload" href="/vuetility/assets/js/app.9cddbf46.js" as="script"><link rel="preload" href="/vuetility/assets/js/8.ae0c52b1.js" as="script"><link rel="prefetch" href="/vuetility/assets/js/10.acc9d43f.js"><link rel="prefetch" href="/vuetility/assets/js/2.a5bf0776.js"><link rel="prefetch" href="/vuetility/assets/js/3.1fc8fa58.js"><link rel="prefetch" href="/vuetility/assets/js/4.e31fb162.js"><link rel="prefetch" href="/vuetility/assets/js/5.ca375477.js"><link rel="prefetch" href="/vuetility/assets/js/6.82351ebe.js"><link rel="prefetch" href="/vuetility/assets/js/7.987e2d41.js"><link rel="prefetch" href="/vuetility/assets/js/9.ba813b10.js">
+    <link rel="stylesheet" href="/vuetility/assets/css/0.styles.6a599c48.css">
   </head>
   <body>
     <div id="app" data-server-rendered="true"><div class="wrapper"><div class="sidebar"><div class="sidebar-mobile"><button class="button button-clear"><img src="/vuetility/assets/img/menu.407adf99.svg" class="icon"></button></div> <div class="search"><input type="text" placeholder="Type to search" value="" class="search-input"></div> <div class="sidebar-main"><p class="no-results">
@@ -52,16 +52,16 @@ This basically means you have to call in the <strong>beforeCreate</strong> metho
         <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre></div><p>The init method only accepts and array of <strong>store/module names</strong>!
+</code></pre></div><p>The init method only accepts an array of <strong>store/module names</strong>!
 This means you have to pass in the <strong>exact name</strong> of a <strong>store/module</strong> you want to use.
-In the first stept we defined:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>StoreModuleA<span class="token punctuation">,</span> ModelA<span class="token punctuation">}</span><span class="token punctuation">,</span>
+In the first step we defined:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span>StoreModuleA<span class="token punctuation">,</span> ModelA<span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">{</span>StoreModuleB<span class="token punctuation">,</span> ModelB<span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre></div><p>StoreModuleA and StoreModuleB are the <strong>exact names</strong> you are supposed to pass the init method through the config array. Like so:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$vuetility</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'StoreModuleA'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// or if you want to use both</span>
 <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$vuetility</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'StoreModuleA'</span><span class="token punctuation">,</span><span class="token string">'StoreModuleB'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre></div><hr> <p><strong>Attention:</strong>
-Find instructions for Version 0.3.3 and below here: README_deprecated.md
-Version 0.3.4 is broken and should not be used!</p></div></div></main></div><div class="global-ui"></div></div>
-    <script src="/vuetility/assets/js/app.c8ca7821.js" defer></script><script src="/vuetility/assets/js/8.9af657d3.js" defer></script>
+Find instructions for Version 0.3.3 and earlier here:
+<a href="https://github.com/adelholtz/vuetility/blob/master/README_deprecated.md" target="_blank" rel="noopener noreferrer">README_deprecated.md<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Version 0.3.4 is broken and should not be used!</p></div></div></main></div><div class="global-ui"></div></div>
+    <script src="/vuetility/assets/js/app.9cddbf46.js" defer></script><script src="/vuetility/assets/js/8.ae0c52b1.js" defer></script>
   </body>
 </html>
