@@ -93,9 +93,9 @@ export default {
     }
 }
 ```
-The init method only accepts and array of **store/module names**!
+The init method only accepts an array of **store/module names**!
 This means you have to pass in the **exact name** of a **store/module** you want to use.
-In the first stept we defined:
+In the first step we defined:
 ```javascript
 {StoreModuleA, ModelA},
 {StoreModuleB, ModelB},
@@ -110,5 +110,7 @@ this.$vuetility().init(['StoreModuleA','StoreModuleB']);
 <hr>
 
 **Attention:**
-Find instructions for Version 0.3.3 and below here: README_deprecated.md
+Find instructions for Version 0.3.3 and earlier here:
+[README_deprecated.md](https://github.com/adelholtz/vuetility/blob/master/README_deprecated.md)
+
 Version 0.3.4 is broken and should not be used!

@@ -1,12 +1,10 @@
----
-navigation: 1
----
-## Vuetility
+# Vuetility
 
 1. [Todo](#todo)
 2. [Prerequsisits](#rerequsisits)
 3. [Latest version](#version)
-4. [Introduction](#introduction)
+4. [Installation](#installation)
+5. [Introduction](#introduction)
 
 
 ## TODO <a href="#" name="todo"></a>
@@ -20,11 +18,28 @@ navigation: 1
 
 ## Latest version <a href="#" name="version"></a>
 
+[![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
+
+0.4.1
+* add typescript module declaration
+* add better Documentation
+* reintroduce type security
+
 0.4.0
 * complete rewrite of the core concept!
 * vuetility is now a Vue Plugin
 * code is more lean and adaptable for future changes
 * this version is **not compatible** with earlier versions and if you want to upgrade you will have to do a rewrite of your component structure by following the [Usage](#usage) instructions below
+
+
+## Installation <a href="#" name="rerequsisits"></a>
+
+```
+npm install @adelholtz/vuetility
+
+yarn add @adelholtz/vuetility
+
+```
 
 
 ## Introduction <a href="#" name="introduction"></a>
@@ -40,5 +55,8 @@ __Project Goals:__
 * no need to write any computed properties for your models properties in your custom component
 * no need to write code in your store that handles the update/setting process of model data
 * support of multiple models per store/component
+
+Documentation: [https://adelholtz.github.io/vuetility/](https://adelholtz.github.io/vuetility/)
+
 
 Please let me know if the usage instructions and example are unclear in any way and should be improved!

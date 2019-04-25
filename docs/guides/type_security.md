@@ -11,7 +11,7 @@ Available types so far are:
 * JSON
 * Array
 
-Vuetility ensures that the provided value for a state variable matches with the type set for this variable through the **type** before setting it.
+Vuetility ensures that the provided value for a state variable matches with the type set for this variable through the **type** parameter before the corresponding state variable is actually updated.
 
 Available type security levels:
 * enforce
