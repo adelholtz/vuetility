@@ -1,7 +1,3 @@
----
-navigation: 1
----
-
 # Vuetility (README)
 
 1. [Todo](#todo)
