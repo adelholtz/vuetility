@@ -2,8 +2,9 @@
 
 import Vuex from 'vuex';
 import Vue from 'vue';
-import {BasicStore} from '@adelholtz/vuetility';
-import {BasicModel} from '@adelholtz/vuetility';
+import BasicStore from '@src/BasicStore.js';
+import BasicModel from '@src/BasicModel.js';
+import _ from 'lodash';
 Vue.use(Vuex);
 
 export default class Vuetility{

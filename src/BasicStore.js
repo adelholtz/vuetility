@@ -13,8 +13,9 @@ export default class BasicStore{
         state = this.state(modelObjects.basicModel(), nameSpace);
 
         this.mutationTypes = {
-            UPDATE_OBJECT: 'updateObject',
-            UPDATE_STATE_VARIABLE: 'updateStateVariable'
+            UPDATE_STATE_BY_MODEL: 'vuet-updateStateByModel',
+            UPDATE_OBJECT_DEPRECATED: 'updateObject',
+            UPDATE_STATE_VARIABLE: 'vuet-updateModel'
         };
 
         return {
@@ -24,6 +25,26 @@ export default class BasicStore{
         };
     }
 
+    update(state, updateProperties){
+        // block null updates
+        if(updateProperties.data === null){
+            return;
+        }
+
+        if(updateProperties.key){
+            state[updateProperties.model] = Object.assign({}, state[updateProperties.model], {
+                [updateProperties.key]: updateProperties.data
+            });
+
+            return;
+        }
+        _.each(updateProperties.data, (value, key) => {
+            state[updateProperties.model] = Object.assign({}, state[updateProperties.model], {
+                [key]: value
+            });
+        });
+    }
+
     /**
      * mutations needed to work in tandem with basicComponent
      * to enable reactivity
@@ -31,25 +52,42 @@ export default class BasicStore{
      * @return Vuex.mutations
      */
     mutations() {
+        let basicStore = this;
+
         return {
             /**
-             * [updateObject description]
-             * @param  Vuex.sate state
-             * @param  JSON updateProperties
-             * {
-             *  state: 'stateKey', // the actual state JSON variable to be modified
-             *  key: 'updateKey' // key from the JSON state variable to be modified
-             *  value: 'updateValue'
-             * }
+              * [updateObject description]
+              * @param  Vuex.sate state
+              * @param  JSON updateProperties
+              * {
+              *  state: 'stateKey', // the actual state JSON variable to be modified
+              *  key: 'updateKey' // key from the JSON state variable to be modified
+              *  value: 'updateValue'
+              * }
+             * @deprecated use vuet-updateStateByModel instead!
              */
-            [this.mutationTypes.UPDATE_OBJECT](state, updateProperties) {
-                // block null updates
+            [this.mutationTypes.UPDATE_OBJECT_DEPRECATED](state, updateProperties) {
                 if(updateProperties.value === null){
                     return;
                 }
-                state[updateProperties.state] = Object.assign({}, state[updateProperties.state], {
-                    [updateProperties.key]: updateProperties.value
+                basicStore.update(state, {
+                    model: updateProperties.state,
+                    key: updateProperties.key,
+                    data: updateProperties.value
                 });
+            },
+            /**
+             * [updateStateByModel description]
+             * @param  Vuex.sate state
+             * @param  JSON updateProperties
+             * {
+             *  model: '', // the model to update
+             *  key: 'updateKey' // obligatory key; if given the key will be update in model
+             *  data: mixed // if no key is given; data has to be JSON and has to resemble the model you want to update
+             * }
+             */
+            [this.mutationTypes.UPDATE_STATE_BY_MODEL](state, updateProperties) {
+                basicStore.update(state, updateProperties);
             },
             /**
              * [updateObject description]

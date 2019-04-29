@@ -1,4 +1,8 @@
-# Vuetility
+---
+navigation: 1
+---
+
+# Vuetility (README)
 
 1. [Todo](#todo)
 2. [Prerequsisits](#rerequsisits)
@@ -20,6 +24,19 @@
 
 [![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
 
+0.4.2
+* rename externally available mutations to ensure uniqueness of methods
+    * updateObject is now deprectad and should not be used anymore; instead use one of
+        * vuet-updateStateByModel
+        * vuet-updateModel
+* add new mutation vuet-updateStateByModel
+    * this is basically a more intelligent implementation of vuet-updateObject but provides a bit less freedom
+    * see: [Updating state variables](https://adelholtz.github.io/vuetility/guides/updateing_state_vars.html)
+* add new mutation vuet-updateModel
+    * allows you to replace an entire given model
+    * see: [Updating state variables](https://adelholtz.github.io/vuetility/guides/updateing_state_vars.html)
+* reimplemented/fixed missing/broken tests
+
 0.4.1
 * add typescript module declaration
 * add better Documentation
@@ -35,9 +52,9 @@
 ## Installation <a href="#" name="rerequsisits"></a>
 
 ```
-npm install @adelholtz/Vuetility
+npm install @adelholtz/vuetility
 
-yarn add @adelholtz/Vuetility
+yarn add @adelholtz/vuetility
 
 ```
 

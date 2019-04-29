@@ -10,22 +10,68 @@ After setting up your project following the instructions provided in
 
 The last step needed is to actually write your data into your state variables inside your store.
 
-Vuetility provides a convicience mutation method for this called **updateObject**.
+Vuetility provides two convicience mutation methods for this:
+
+* vuet-updateModel
+    * updates the (whole of a) given Model with provided data
+* vuet-updateStateByModel
+    * updates specific given states/variables inside provided model
+
 
 A very basic example:
 
 ```javascript
-context.commit('updateObject', {
-    state: 'ModelA',
-    key: propertyNameOfModelA,
-    value: value
+context.commit('vuet-updateStateByModel', {
+    model: 'ModelA', // the name of the model you want to update
+    key: propertyNameOfModelA, // the key inside the model you want to update
+    data: data // the data you want to set for the key inside the model
+});
+```
+or
+```javascript
+context.commit('vuet-updateStateByModel', {
+    model: 'ModelA', // the name of the model you want to update
+    data: data // the data you want to update the model with
 });
 ```
 
-The **updateObject** will ensure that all state variables stay reactive, so its highly recommended
-to use it although you could use other(custom) means of setting your state variables.
+ATTENTION:
+the **_key_** parameter is optional and does not need to be provided **but** if you do not provide a
+specific key be sure that the provided data resembles the data-structure of the model.
 
-### Example implementation/usage of **updateObject**
+**Example:**
+```javascript
+//model structure of 'ModelA'
+{
+    'data-a': {},
+    'data-b': 'foo'
+    'data-c': 0
+}
+
+// update 'data-b' for 'ModelA'
+context.commit('vuet-updateStateByModel', {
+    model: 'ModelA',
+    key: 'data-b'
+    data: 'bar'
+});
+
+// can also be done like this
+//
+// using this method you can update multiple key inside a model at once without the need to override
+// the complete model
+context.commit('vuet-updateStateByModel', {
+    model: 'ModelA',
+    data: {
+        'data-b': 'bar'
+    }
+});
+
+```
+
+The **vuet-*** mutation methods will ensure that all state variables stay reactive, so its highly recommended
+to use them although you could use other(custom) means of setting your state variables.
+
+### Example implementation/usage of **vuet-***
 
 An example implementation can also be found in the repository at: [Vuetility example implementation](https://github.com/adelholtz/vuetility/tree/master/example)
 
@@ -63,7 +109,7 @@ The data we are after here can be found under **data.data**
     __proto__: Object
 ```
 
-Implementation of **updateObject** in your store:
+Implementation of **vuet-updateStateByModel** in your store:
 ```javascript
 // actions inside your store
 const actions = {
@@ -76,12 +122,10 @@ const actions = {
             axios.get(url)
                 .then(function(response) {
                     let data = _.get(response, 'data.data', {});
-                    _.each(data, function(value, key) {
-                        context.commit('updateObject', {
-                            state: 'DataModel',
-                            key: key, // in this case this is either data_a or data_b
-                            value: value // in this case this is either foo or bar
-                        });
+
+                    context.commit('vuet-updateStateByModel', {
+                        model: 'DataModel'
+                        data: data
                     });
                 })
                 .catch(function(error) {

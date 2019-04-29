@@ -27,12 +27,9 @@ const actions = {
         })
             .then(function(response) {
                 context.state.response = _.get(response,'data.data', {});
-                _.each(context.state.response, function(value, key){
-                    context.commit('updateObject', {
-                        state: 'ModelA',
-                        key: key,
-                        value: value
-                    });
+                context.commit('vue-tupdateStateByModel', {
+                    model: 'ModelA',
+                    data: context.state.response
                 });
             })
             .catch(function(error) {

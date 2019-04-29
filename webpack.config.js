@@ -5,7 +5,7 @@ var path = require('path');
 module.exports = {
     mode: 'production',
     entry: {
-        build: './tests/Specs/BasicComponent.js'
+        build: './tests/Specs/MyComponentTest.js'
     },
     output: {
         path: path.resolve(__dirname, 'tests/Tests'),

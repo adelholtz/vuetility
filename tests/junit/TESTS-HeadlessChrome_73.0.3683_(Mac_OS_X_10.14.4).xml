@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<testsuite name="HeadlessChrome 73.0.3683 (Mac OS X 10.14.4)" package="" timestamp="2019-04-29T09:10:19" id="0" hostname="benjamin-krammel.intern.internetx.de" tests="0" errors="1" failures="0" time="0">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/73.0.3683.103 Safari/537.36"/>
+  </properties>
+  <system-out>
+    <![CDATA[HeadlessChrome 73.0.3683 (Mac OS X 10.14.4) ERROR: 'DEPRECATION:', 'Setting specFilter directly on Env is deprecated, please use the specFilter option in `configure`'
+,HeadlessChrome 73.0.3683 (Mac OS X 10.14.4) ERROR
+  {
+    "message": "An error was thrown in afterAll\nReferenceError: Vue is not defined\n    at eval (webpack:///./tests/Specs/MyComponentTest.js_+_13_modules?:1297:1)\n    at Module.<anonymous> (tests/Tests/build.js:1:749893)\n    at t (tests/Tests/build.js:1:110)\n    at tests/Tests/build.js:1:913\n    at tests/Tests/build.js:1:922",
+    "str": "An error was thrown in afterAll\nReferenceError: Vue is not defined\n    at eval (webpack:///./tests/Specs/MyComponentTest.js_+_13_modules?:1297:1)\n    at Module.<anonymous> (tests/Tests/build.js:1:749893)\n    at t (tests/Tests/build.js:1:110)\n    at tests/Tests/build.js:1:913\n    at tests/Tests/build.js:1:922"
+  }
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

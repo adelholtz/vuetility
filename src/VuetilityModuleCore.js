@@ -137,11 +137,10 @@ export default class VuetilityModuleCore {
             newValue
         );
 
-        basicComponent.componentScope.$store.commit(nameSpace+'/updateObject', {
-            state: modelName,
-            key: key,
-            value: checkedValue,
-            nameSpace
+        basicComponent.componentScope.$store.commit(nameSpace+'/vuet-updateStateByModel', {
+            model: modelName,
+            key,
+            data: checkedValue
         });
     }
 
@@ -174,11 +173,10 @@ export default class VuetilityModuleCore {
 
         if(propertyValue === false){
             if(modelProperty.defaultValue !== undefined){
-                this.componentScope.$store.commit(nameSpace+'/updateObject', {
-                    state: modelName,
+                this.componentScope.$store.commit(nameSpace+'/vuet-updateStateByModel', {
+                    model: modelName,
                     key: key,
-                    value: modelProperty.defaultValue,
-                    nameSpace
+                    data: modelProperty.defaultValue
                 });
                 propertyValue = modelProperty.defaultValue;
 

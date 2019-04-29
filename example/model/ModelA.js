@@ -1,13 +1,13 @@
-export class LoginModel {
+export class ModelA {
     model() {
         return {
-            'username': {
+            'data-a': {
                 type: String,
-                defaultValue: undefined
+                defaultValue: 'foo'
             },
-            'password': {
+            'data-b': {
                 type: String,
-                defaultValue: 'n/a'
+                defaultValue: 'bar'
             }
         };
     }
