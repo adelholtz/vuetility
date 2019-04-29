@@ -2,8 +2,8 @@
 
 import Vuex from 'vuex';
 import Vue from 'vue';
-import BasicStore from '@src/BasicStore.js';
-import BasicModel from '@src/BasicModel.js';
+import BasicStore from './BasicStore.js';
+import BasicModel from './BasicModel.js';
 import _ from 'lodash';
 Vue.use(Vuex);
 
