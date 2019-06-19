@@ -1,13 +1,13 @@
 /* global _ */
 
-export default class BasicStore{
+export default class BasicStore {
 
     /**
      *
      * @param Array/Object modelObjects Object or Array of objects
      * @return Object
      */
-    constructor(modelObjects, nameSpace = false){
+    constructor(modelObjects, nameSpace = false) {
         let state = {};
 
         state = this.state(modelObjects.basicModel(), nameSpace);
@@ -15,7 +15,8 @@ export default class BasicStore{
         this.mutationTypes = {
             UPDATE_STATE_BY_MODEL: 'vuet-updateStateByModel',
             UPDATE_OBJECT_DEPRECATED: 'updateObject',
-            UPDATE_STATE_VARIABLE: 'vuet-updateModel'
+            UPDATE_STATE_VARIABLE: 'vuet-updateModel',
+            RESET_MODEL: 'vuet-resetModel'
         };
 
         return {
@@ -25,13 +26,13 @@ export default class BasicStore{
         };
     }
 
-    update(state, updateProperties){
+    update(state, updateProperties) {
         // block null updates
-        if(updateProperties.data === null){
+        if (updateProperties.data === null) {
             return;
         }
 
-        if(updateProperties.key){
+        if (updateProperties.key) {
             state[updateProperties.model] = Object.assign({}, state[updateProperties.model], {
                 [updateProperties.key]: updateProperties.data
             });
@@ -67,7 +68,7 @@ export default class BasicStore{
              * @deprecated use vuet-updateStateByModel instead!
              */
             [this.mutationTypes.UPDATE_OBJECT_DEPRECATED](state, updateProperties) {
-                if(updateProperties.value === null){
+                if (updateProperties.value === null) {
                     return;
                 }
                 basicStore.update(state, {
@@ -77,7 +78,6 @@ export default class BasicStore{
                 });
             },
             /**
-             * [updateStateByModel description]
              * @param  Vuex.sate state
              * @param  JSON updateProperties
              * {
@@ -90,7 +90,6 @@ export default class BasicStore{
                 basicStore.update(state, updateProperties);
             },
             /**
-             * [updateObject description]
              * @param  Vuex.sate state
              * @param  JSON updateProperties
              * {
@@ -100,7 +99,19 @@ export default class BasicStore{
              */
             [this.mutationTypes.UPDATE_STATE_VARIABLE](state, updateProperties) {
                 state[updateProperties.state] = updateProperties.value;
-            }
+            },
+            /**
+             * Resets a model to its initial/default values 
+             * 
+             * @param  Vuex.sate state     
+             * @param String modelName   
+            */
+            [this.mutationTypes.RESET_MODEL](state, modelName) {
+                let modelDefinition = state[modelName + 'Definition'];
+                _.each(modelDefinition, (definition, key) => {
+                    state[modelName][key] = definition.defaultValue;
+                });
+            },
         };
     }
 
@@ -111,16 +122,16 @@ export default class BasicStore{
      * @param  String modelName
      * @return Vuex.state
      */
-    state(model, modelName){
+    state(model, modelName) {
         let state = {};
         state[modelName] = {};
-        state[modelName+'Definition'] = model;
-        _.each(model, function(definition, key){
+        state[modelName + 'Definition'] = model;
+        _.each(model, function (definition, key) {
             let value = undefined;
-            if(definition.type === JSON){
+            if (definition.type === JSON) {
                 value = {};
             }
-            if(definition.defaultValue !== undefined){
+            if (definition.defaultValue !== undefined) {
                 value = definition.defaultValue;
             }
             state[modelName][key] = value;

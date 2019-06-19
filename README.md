@@ -20,12 +20,17 @@
 
 [![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
 
+0.4.4
+* add new mutation vuet-resetModel
+    * Resets a model to its initial/default values
+    * usage: context.commit('vuet-resetModel', 'ModelA');
+
 0.4.3
 * fix a path error which was being introduced in 0.4.2
 
 0.4.2
 * rename externally available mutations to ensure uniqueness of methods
-    * updateObject is now deprectad and should not be used anymore; instead use one of
+    * updateObject is now deprecated and should not be used anymore; instead use one of
         * vuet-updateStateByModel
         * vuet-updateModel
 * add new mutation vuet-updateStateByModel
