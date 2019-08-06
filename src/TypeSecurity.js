@@ -26,7 +26,13 @@ export default class TypeSecurity{
      */
     static checkValueTypeSecurity(key, modelName, modelProperty, value) {
 
+        if(value === undefined || value === null){
+            return value;
+        }
+
+        let initialValue = value;
         let expectedInstance;
+        
         if(modelProperty.type === JSON){
             expectedInstance = JSON;
         }else{
@@ -47,7 +53,12 @@ export default class TypeSecurity{
                 }else{
                     value = Number.parseInt(value);
                 }
-                typesAreMatching = _.isNumber(value);
+                if (isNaN(value) && _.isEmpty(value)) {
+                    value = initialValue;
+                    typesAreMatching = true;
+                } else {
+                    typesAreMatching = _.isNumber(value);
+                }
             }
         }
         if (expectedInstance instanceof String) {

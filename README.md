@@ -8,6 +8,7 @@
 
 
 ## TODO <a href="#" name="todo"></a>
+* allow/forbid undefined and null values for Model Properties
 * core implementation for non namespaced stores
 
 ## Prerequsisits <a href="#" name="rerequsisits"></a>
@@ -19,6 +20,11 @@
 ## Latest version <a href="#" name="version"></a>
 
 [![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
+
+0.4.5
+* bugfix: Number values incorrectly giving back NaN in some cases
+* temp fix: undefined and null values will no longer give type exceptions
+    * Attention: this will be replaced by further options in the model to allow/forbid those types
 
 0.4.4
 * add new mutation vuet-resetModel
