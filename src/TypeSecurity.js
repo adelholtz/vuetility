@@ -1,5 +1,5 @@
 /* global _ */
-export default class TypeSecurity{
+export default class TypeSecurity {
 
     static setTypeSecurityLevel(typeSecurityLevel) {
         this.logTypeSecurityError = false;
@@ -26,31 +26,34 @@ export default class TypeSecurity{
      */
     static checkValueTypeSecurity(key, modelName, modelProperty, value) {
 
-        if(value === undefined || value === null){
-            return value;
+        if (value === undefined || value === null) {
+            if (modelProperty.allowUndefined) {
+                return value;
+            }
+            return modelProperty.type();
         }
 
         let initialValue = value;
         let expectedInstance;
-        
-        if(modelProperty.type === JSON){
+
+        if (modelProperty.type === JSON) {
             expectedInstance = JSON;
-        }else{
+        } else {
             expectedInstance = new modelProperty.type();
         }
 
         let typesAreMatching = false;
 
-        if(expectedInstance instanceof Object){
+        if (expectedInstance instanceof Object) {
             typesAreMatching = _.isObject(value);
         }
 
         if (expectedInstance instanceof Number) {
             typesAreMatching = _.isNumber(value);
             if (!typesAreMatching) {
-                if(value.match(/^\d+\.\d+$/) !== null){
+                if (value.match(/^\d+\.\d+$/) !== null) {
                     value = Number.parseFloat(value);
-                }else{
+                } else {
                     value = Number.parseInt(value);
                 }
                 if (isNaN(value) && _.isEmpty(value)) {
@@ -70,16 +73,16 @@ export default class TypeSecurity{
         if (expectedInstance instanceof Boolean) {
             typesAreMatching = _.isBoolean(value);
             if (!typesAreMatching) {
-                if(value==='true'){
+                if (value === 'true') {
                     value = true;
                     typesAreMatching = true;
-                }else if(value==='false'){
+                } else if (value === 'false') {
                     value = false;
                     typesAreMatching = true;
-                }else if(value === 0){
+                } else if (value === 0) {
                     value = false;
                     typesAreMatching = true;
-                }else if(value === 1){
+                } else if (value === 1) {
                     value = true;
                     typesAreMatching = true;
                 }
@@ -117,22 +120,22 @@ export default class TypeSecurity{
      */
     static getActualTypeOfValue(value) {
         try {
-            if(_.isBoolean(value)){
+            if (_.isBoolean(value)) {
                 return Boolean;
             }
-            if(_.isString(value)){
+            if (_.isString(value)) {
                 return String;
             }
-            if(_.isArray(value)){
+            if (_.isArray(value)) {
                 return Array;
             }
-            if(value === {}){
+            if (value === {}) {
                 return JSON;
             }
-            if(_.isObject(value)){
+            if (_.isObject(value)) {
                 return Object;
             }
-            if(_.isNumber(value)){
+            if (_.isNumber(value)) {
                 return Number;
             }
 

@@ -7,9 +7,26 @@ import BasicModel from './BasicModel.js';
 import _ from 'lodash';
 Vue.use(Vuex);
 
-export default class Vuetility{
+export default class Vuetility {
 
-    constructor(structure){
+    /**
+     * @param Object/Array structure
+     * @return Vuex
+     */
+    constructor(structure) {
+        if (!_.isArray(structure)) {
+            return this.createSingleStore(structure);
+        }
+
+        return this.createModuleStore(structure);
+    }
+
+    /**
+     * 
+     * @param Object structure 
+     * @return Vuex
+     */
+    createModuleStore(structure) {
         let storeModules = {};
 
         structure.map((entity) => {
@@ -19,8 +36,8 @@ export default class Vuetility{
             // entities are either whole stores or models
             // first entity always is expected to be a store
             // all other entities are models
-            for(let name in entity){
-                if(storeModule !== null){
+            for (let name in entity) {
+                if (storeModule !== null) {
                     storeModule.storeModels.push(name);
                     // generate new model instance
                     let modelEntity = new entity[name]();
@@ -39,12 +56,12 @@ export default class Vuetility{
             storeModules[storeModuleName] = storeModule;
         });
 
-        _.merge(structure,{
+        _.merge(structure, {
             getters: {
 
                 getDataByModel: (state) => (modelName) => {
 
-                    console.log(modelName,state, this);
+                    console.log(modelName, state, this);
 
                     return modelName;
                 }
@@ -52,7 +69,29 @@ export default class Vuetility{
             }
         });
 
-        return new Vuex.Store({modules:storeModules});
+        return new Vuex.Store({ modules: storeModules });
     }
 
+    /**
+     *
+     * @param Array singleStore
+     * @return Vuex
+     */
+    createSingleStore(singleStore) {
+        let store = {
+            state: {
+                models: []
+            }
+        };
+        for (let modelName in singleStore.models) {
+            let modelEntity = new singleStore.models[modelName]();
+            _.merge(modelEntity, new BasicModel({}));
+            // // add state variables and other basic stuff
+            let basicStore = new BasicStore(modelEntity, modelName);
+            store.state.models.push(modelName);
+            store = _.merge(store, basicStore);
+        }
+        store = _.merge(store, singleStore);
+        return new Vuex.Store(store);
+    }
 }

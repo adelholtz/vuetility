@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<testsuite name="HeadlessChrome 74.0.3729 (Mac OS X 10.14.4)" package="" timestamp="2019-04-29T09:38:30" id="0" hostname="benjamin-krammel.intern.internetx.de" tests="1" errors="0" failures="0" time="0.008">
+<testsuite name="HeadlessChrome 74.0.3729 (Mac OS X 10.14.4)" package="" timestamp="2019-05-13T09:21:26" id="0" hostname="supports-MacBook-Pro.local" tests="1" errors="0" failures="0" time="0.007">
   <properties>
-    <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/74.0.3729.108 Safari/537.36"/>
+    <property name="browser.fullName" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/74.0.3729.131 Safari/537.36"/>
   </properties>
-  <testcase name="BasicComponent myComponentHasExpectedComputed" time="0.008" classname="HeadlessChrome_74_0_3729_(Mac_OS_X_10_14_4).BasicComponent"/>
+  <testcase name="BasicComponent myComponentHasExpectedComputed" time="0.007" classname="HeadlessChrome_74_0_3729_(Mac_OS_X_10_14_4).BasicComponent"/>
   <system-out>
     <![CDATA[HeadlessChrome 74.0.3729 (Mac OS X 10.14.4) ERROR: 'DEPRECATION:', 'Setting specFilter directly on Env is deprecated, please use the specFilter option in `configure`'
 
