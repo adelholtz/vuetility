@@ -21,6 +21,16 @@
 
 [![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
 
+0.5.1
+* fix Readme.md
+* move dev-packages to dev-dependency
+
+0.5.0
+* added a new model property: allowUndefined
+    * allows values to explicitly be set to 'undefined' (this had been removed on 0.4.5)
+* added basic structure for stores without modules
+    * Attention: complete functionality still needs to be added
+
 0.4.5
 * bugfix: Number values incorrectly giving back NaN in some cases
 * temp fix: undefined and null values will no longer give type exceptions
@@ -71,7 +81,23 @@ yarn add @adelholtz/vuetility
 
 ## Introduction <a href="#" name="introduction"></a>
 
-Contains basic logic for generic (Vuex)store and (Vue)component usage, by auto-generating (Vue)computed properties and (Vuex)state variables from provided models.
+Vuex is great but in my opinion its lacking something very basic.
+In every Vue project i came across so far you have to write the same computed properties in different
+components over and over again. Sure, you can streamline this by using various different approaches but the problem stays 
+the same and you will have to overcome this in every new project thinking about the best way to organize things.
+Thats why i came up with this little 'plugin', 'wrapper' 'addition' or whatever you'd like to call it.
+
+This does not reinvent Vuex in any way, it does not temper with the core of Vuex or Vue!
+
+I see Vuetility, Vuex and Vue like a Matryoshka, consisting of several layers which build upon each other
+enhancing the layer beneath giving them access to more features and convenience functions.
+
+What is Vuetility then in general?
+
+Vuetility contains basic logic for generic (Vuex)store and (Vue)component usage, by auto-generating (Vue)computed properties and (Vuex)state variables from provided models.
+
+It also gives you access to a set of predefined [mutations](/guide/updateing_state_vars.html) which you can use
+with *every* state variable in your stores/modules.
 
 __The model can/must also contain:__
 * a renderer per property.
