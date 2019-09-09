@@ -92,6 +92,10 @@ export default class Vuetility {
             store = _.merge(store, basicStore);
         }
         store = _.merge(store, singleStore);
+
+        if(singleStore.nuxt){
+            return store;
+        }
         return new Vuex.Store(store);
     }
 }
