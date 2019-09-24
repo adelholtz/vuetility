@@ -97,7 +97,7 @@ export default class TypeSecurity {
 				key +
 				"\n" +
 				"Expected Type: " +
-				modelProperty.type +
+				expectedInstance +
 				"\n" +
 				"Actual Type: " +
 				TypeSecurity.getActualTypeOfValue(value, modelProperty.type);
@@ -148,20 +148,24 @@ export default class TypeSecurity {
 	 */
 	static getTypeInstance(type) {
 		try {
+			return new type();
+		} catch (error) {}
+
+		try {
 			if (typeof type === "boolean" || type === "Boolean") {
-				return Boolean;
+				return new Boolean();
 			}
-			if (typeof type === "string" || type === "String") {
-				return String;
+			if (type === "String") {
+				return new String();
 			}
-			if (_.isArray(new type()) || type === "Array") {
-				return Array;
+			if (type === "Array") {
+				return new Array();
 			}
 			if (typeof type === "object" || type === "JSON") {
-				return JSON;
+				return new Object();
 			}
 			if (typeof type === "number" || type === "Number") {
-				return Number;
+				return new Number();
 			}
 		} catch (Exception) {
 			return typeof value;
