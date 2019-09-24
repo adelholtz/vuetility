@@ -1,6 +1,6 @@
 {
     "name": "@adelholtz/vuetility",
-    "version": "0.5.2",
+    "version": "0.6.0",
     "description": "Basic utilities for Vue and Vuex",
     "main": "index.js",
     "types": "index.d.ts",
