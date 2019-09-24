@@ -2,7 +2,7 @@ module.exports = {
   title: 'Vuetility',
   description: 'Vuetility is a wrapper for Vuex providing additional functionality',
   theme: 'vuepress-theme-thindark',
-  base: '/',
+  base: '/vuetility/',
     themeConfig: {
         nav: [
             { text: 'Home', link: '/' },
@@ -16,9 +16,10 @@ module.exports = {
                 'getting_started', 
                 'model',         
                 'usage_namespaced',
-                'usage_without_namespace',       
+                'usage_without_namespace', 
+                'nuxt_usage',   
                 'updateing_state_vars',
-                'type_security'       
+                'type_security'      
             ]
         }
     }

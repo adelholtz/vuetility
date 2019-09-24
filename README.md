@@ -21,6 +21,15 @@
 
 [![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
 
+0.6.0
+* lodash is no longer required to be available in global scope
+* added NuxtCore module
+* added possiblity to use vuetility in nuxt
+* model types can now be defined as either strings or 'direct' types
+    * for example
+        * 'String' or String
+        * 'Array' or Array
+
 0.5.1
 * fix Readme.md
 * move dev-packages to dev-dependency
