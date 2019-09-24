@@ -1,13 +1,14 @@
-/* global _ */
 import TypeSecurity from './TypeSecurity.js';
+import _ from "lodash";
 
 export default class Vuetilitycore {
     constructor(componentScope, typeSecurityLevel) {
         this.componentScope = componentScope;
-        this.securityLevel = typeSecurityLevel;
+        this.typeSecurityLevel(typeSecurityLevel);
     }
 
     typeSecurityLevel(level) {
+        console.log(level);
         TypeSecurity.setTypeSecurityLevel(level);
     }
 
