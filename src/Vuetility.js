@@ -58,8 +58,6 @@ export default class Vuetility {
 		_.merge(structure, {
 			getters: {
 				getDataByModel: state => modelName => {
-					console.log(modelName, state, this);
-
 					return modelName;
 				}
 			}

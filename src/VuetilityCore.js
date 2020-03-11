@@ -8,7 +8,6 @@ export default class Vuetilitycore {
     }
 
     typeSecurityLevel(level) {
-        console.log(level);
         TypeSecurity.setTypeSecurityLevel(level);
     }
 
