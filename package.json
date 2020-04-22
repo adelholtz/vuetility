@@ -1,6 +1,6 @@
 {
     "name": "@adelholtz/vuetility",
-    "version": "0.6.2",
+    "version": "0.6.3",
     "description": "Basic utilities for Vue and Vuex",
     "main": "index.js",
     "types": "index.d.ts",
@@ -13,6 +13,7 @@
         "access": "public"
     },
     "scripts": {
+        "report-coverage": "codecov",
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
         "dev": "npm run development",
@@ -22,13 +23,12 @@
         "production": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=webpack.config.js"
     },
     "devDependencies": {
+        "@adelholtz/eslint-config": "https://github.com/adelholtz/eslint-config.git",
         "@babel/core": "^7.1.0",
         "@babel/preset-env": "^7.1.0",
         "@vue/test-utils": "^1.0.0-beta.25",
         "babel-loader": "^8.0.4",
         "cross-env": "^5.2.0",
-        "eslint": "^5.5.0",
-        "eslint-plugin-vue": "^5.0.0-beta.3",
         "jasmine": "^3.2.0",
         "jasmine-core": "^3.2.1",
         "karma": "^3.0.0",
