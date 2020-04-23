@@ -21,6 +21,13 @@
 
 [![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
 
+0.7.0
+* some basic code refactors
+* removed console.log calls and other debug related stuff
+* replaced some lodash methods with native js (ongoing process)
+    * the goal is to completely remove lodash from the code
+* improved documentation
+
 0.6.0
 * lodash is no longer required to be available in global scope
 * added NuxtCore module
