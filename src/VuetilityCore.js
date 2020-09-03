@@ -1,5 +1,6 @@
 import TypeSecurity from "./TypeSecurity.js";
 import VLib from "./VLib";
+import _ from "lodash";
 
 export default class Vuetilitycore {
   constructor(componentScope, typeSecurityLevel) {
