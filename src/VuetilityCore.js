@@ -181,7 +181,17 @@ export default class Vuetilitycore {
         if (modelProperty.type === JSON) {
           propertyValue = {};
         } else {
-          propertyValue = modelProperty.type();
+          try {
+            propertyValue = modelProperty.type();
+          } catch (Exception) {
+            try {
+              // if type is String we have to get the default types differently
+              propertyValue = window[modelProperty.type]();
+            } catch (Exception) {
+              // for node environments
+              propertyValue = eval(modelProperty.type)();
+            }
+          }
         }
       }
     }
