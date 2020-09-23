@@ -1,10 +1,9 @@
 /* global _ */
-
 import Vuex from "vuex";
 import Vue from "vue";
 import BasicStore from "./BasicStore.js";
 import BasicModel from "./BasicModel.js";
-import _ from "lodash";
+import merge from "lodash/merge";
 Vue.use(Vuex);
 
 export default class Vuetility {
@@ -13,7 +12,7 @@ export default class Vuetility {
    * @return Vuex
    */
   constructor(structure) {
-    if (!_.isArray(structure)) {
+    if (!Array.isArray(structure)) {
       return this.createSingleStore(structure);
     }
 
@@ -40,10 +39,10 @@ export default class Vuetility {
           storeModule.storeModels.push(name);
           // generate new model instance
           let modelEntity = new entity[name]();
-          _.merge(modelEntity, new BasicModel({}));
+          merge(modelEntity, new BasicModel({}));
           // add state variables and other basic stuff
           basicStore = new BasicStore(modelEntity, name);
-          storeModule = _.merge(storeModule, basicStore);
+          storeModule = merge(storeModule, basicStore);
           continue;
         }
 
@@ -55,7 +54,7 @@ export default class Vuetility {
       storeModules[storeModuleName] = storeModule;
     });
 
-    _.merge(structure, {
+    merge(structure, {
       getters: {
         getDataByModel: state => modelName => {
           return modelName;
@@ -79,13 +78,13 @@ export default class Vuetility {
     };
     for (let modelName in singleStore.models) {
       let modelEntity = new singleStore.models[modelName]();
-      _.merge(modelEntity, new BasicModel({}));
+      merge(modelEntity, new BasicModel({}));
       // // add state variables and other basic stuff
       let basicStore = new BasicStore(modelEntity, modelName);
       store.state.models.push(modelName);
-      store = _.merge(store, basicStore);
+      store = merge(store, basicStore);
     }
-    store = _.merge(store, singleStore);
+    store = merge(store, singleStore);
 
     if (singleStore.nuxt) {
       return store;
