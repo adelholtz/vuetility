@@ -21,6 +21,13 @@
 
 [![npm version](https://badge.fury.io/js/%40adelholtz%2Fvuetility.svg)](https://badge.fury.io/js/%40adelholtz%2Fvuetility)
 
+0.8.0
+* introduction of 'exclusive models' (currently only available for usage in Nuxt)
+    * this.$vuetility.init(['Module, ExclusiveModel'])
+    * exclusivemodels will be the only models used to generate computed variables
+* formatting is now done with prettier/eslint settings
+* remove some unneeded usaged of lodash
+
 0.7.0
 * some basic code refactors
 * removed console.log calls and other debug related stuff
