@@ -16,11 +16,17 @@ export default class BasicStore {
             RESET_MODEL: 'vuet-resetModel',
         }
 
-        return {
+        let skeleton = {
             mutationTypes: this.mutationTypes,
             state,
             mutations: this.mutations(),
         }
+
+        if (nameSpace) {
+            skeleton['getters'] = this.getters(nameSpace)
+        }
+
+        return skeleton
     }
 
     update(state, updateProperties) {
@@ -49,6 +55,14 @@ export default class BasicStore {
                     [key]: value,
                 }
             )
+        }
+    }
+
+    getters(nameSpace) {
+        return {
+            [nameSpace](state) {
+                return state[nameSpace]
+            },
         }
     }
 

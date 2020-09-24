@@ -19,6 +19,23 @@ export default class VuetilitySingleCore extends VuetilityCore {
             }
             _.merge(computed, this.componentScope.$options.computed)
             this.componentScope.$options.computed = computed
+
+            this.componentScope.$options.methods = _.merge(
+                {
+                    updateState(v) {
+                        let path = v.srcElement.attributes[
+                            'vuet-path'
+                        ].value.split('.')
+                        this.$store.commit('vuet-updateStateByModel', {
+                            model: path[0],
+                            data: Object.assign(this[path[0]], {
+                                [path[1]]: v.srcElement.value,
+                            }),
+                        })
+                    },
+                },
+                this.componentScope.$options.methods
+            )
         })
 
         return this
